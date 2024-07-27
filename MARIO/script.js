@@ -8,15 +8,13 @@ audioStart = new Audio('./src/audio/audio_theme.mp3')
 audioGameOver = new Audio('./src/audio/audio_gameover.mp3')
 
 
-const startGame = () => {
-  pipe.classList.add('pipe-animation')
-  start.style.display = 'none'
-
-  // audio
-  audioStart.play()
+function startGame() {
+  pipe.classList.add('pipe-animation');
+  start.style.display = 'none';
+  audioStart.play();
 }
 
-const restartGame = () => {
+function restartGame(){
   gameOver.style.display = 'none'
   pipe.style.left = ''
   pipe.style.right = '0'
@@ -31,10 +29,9 @@ const restartGame = () => {
 
   audioStart.play()
   audioStart.currentTime = 0;
-
 }
 
-const jump = () => {
+function jump() {
   mario.classList.add('jump')
 
   setTimeout(() => {
@@ -42,12 +39,11 @@ const jump = () => {
   }, 800)
 }
 
-const loop = () => {
-  setInterval(() => {
-    const pipePosition = pipe.offsetLeft
-    const marioPosition = window
-      .getComputedStyle(mario)
-      .bottom.replace('px', ' ')
+function game() { 
+  const pipePosition = pipe.offsetLeft
+  const marioPosition = window
+    .getComputedStyle(mario)
+    .bottom.replace('px', ' ')
 
     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
       pipe.classList.remove('.pipe-animation')
@@ -76,11 +72,17 @@ const loop = () => {
       gameOver.style.display = 'flex'
       
       clearInterval(loop)
-    }
-  }, 10)
+  }
 }
 
-loop()
+const loop = () => {
+  setInterval(game, 10)
+}
+
+function loop() {
+  setInterval(game, 10)
+}
+
 
 document.addEventListener('keypress', e => {
   const tecla = e.key
